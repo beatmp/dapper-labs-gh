@@ -164,12 +164,14 @@ const IssuesContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
 `
 
 const IssueBox = styled.div`
   border: 1px solid black;
-  padding: 20px;
-  width: 350px;
+  padding: 20px 20px 30px 20px;
+  width: 400px;
+  position: relative;
   margin: 25px;
 `
 
@@ -184,6 +186,11 @@ const IssueBody = styled.p`
 const LabelsContainer = styled.div`
   display: flex;
   flex-direction: row;
+  margin: 30px 20px 10px 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
 `
 
 const LabelItem = styled.div`
