@@ -80,12 +80,13 @@ function Issues() {
             <TabItem
               style={currentState === TabItems[tabItem] ? {'textDecoration': 'underline'} : {}}
               onClick={() => {
-              if (currentState !== TabItems[tabItem]) {
-                setIssues([]);
-                setCurrentState(TabItems[tabItem])
-                setCurrentPage(1);
-                setError(null);
-              }
+                if (currentState !== TabItems[tabItem]) {
+                  setIsLoading(true);
+                  setCurrentState(TabItems[tabItem])
+                  setCurrentPage(1);
+                  setError(null);
+                  setIssues([]);
+                }
             }}>
               {tabItem}
             </TabItem>
