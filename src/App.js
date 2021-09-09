@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,7 +10,7 @@ import Issues from './containers/Issues';
 
 function App() {
   return (
-    <div className="App">
+    <>
       <Router>
         <Switch>
           <Route path="/issues/:owner/:repo">
@@ -22,7 +21,7 @@ function App() {
           </Route>
         </Switch>
       </Router>
-    </div>
+    </>
   );
 }
 

@@ -19,9 +19,9 @@ const TabItems = {
 function Issues() {
   let { owner, repo } = useParams();
   let history = useHistory();
+  const octokit = new Octokit({ auth: process.env.REACT_APP_OCTOKIT_KEY });
   const [issues, setIssues] = useState([])
   const [err, setError] = useState(null);
-  const octokit = new Octokit({ auth: process.env.REACT_APP_OCTOKIT_KEY });
   const [currentState, setCurrentState] = useState('all')
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -50,7 +50,7 @@ function Issues() {
         } else {
           currentIssues = response.data;
         }
-        if (response.data.length < 9) {
+        if (response.data.length < perPage) {
           break
         }
         currentPageInLoop++;
@@ -190,7 +190,6 @@ const LabelsContainer = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-
 `
 
 const LabelItem = styled.div`
