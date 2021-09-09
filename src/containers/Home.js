@@ -13,7 +13,6 @@ function Home() {
   let history = useHistory();
   const octokit = new Octokit({ auth: process.env.REACT_APP_OCTOKIT_KEY });
 
-
   return (
     <HomeContainer>
       <Title>Github Issue Viewer</Title>
@@ -69,6 +68,7 @@ const Title = styled.div`
   text-align: center;
   font-weight: 900;
   font-size: 2em;
+  color: #8323e0;
   margin: 100px 0 20px 20px;
 `
 

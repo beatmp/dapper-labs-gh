@@ -80,10 +80,12 @@ function Issues() {
             <TabItem
               style={currentState === TabItems[tabItem] ? {'textDecoration': 'underline'} : {}}
               onClick={() => {
-              setIssues([]);
-              setCurrentState(TabItems[tabItem])
-              setCurrentPage(1);
-              setError(null);
+              if (currentState !== TabItems[tabItem]) {
+                setIssues([]);
+                setCurrentState(TabItems[tabItem])
+                setCurrentPage(1);
+                setError(null);
+              }
             }}>
               {tabItem}
             </TabItem>
@@ -94,7 +96,7 @@ function Issues() {
         {
           issues.length > 0 &&
           issues.map((issue) =>
-            <IssueBox>
+              <IssueBox isClosed={issue?.closed_at}>
               <IssueHeader>
                 {issue?.title}
                 {issue?.pull_request ?
@@ -132,9 +134,10 @@ function Issues() {
 }
 
 const Title = styled.div`
-    font-weight: 900;
-    font-size: 2em;
-    cursor: pointer;
+  font-weight: 900;
+  font-size: 2em;
+  cursor: pointer;
+  color: #8323e0;
 `
 
 const TabsContainer = styled.div`
@@ -165,29 +168,42 @@ const IssuesContainer = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 `
 
-const IssueBox = styled.div`
-  border: 1px solid black;
-  padding: 20px 20px 30px 20px;
-  width: 400px;
-  position: relative;
-  margin: 25px;
-`
+const IssueBox = styled.div(({isClosed}) => {
+    let styles =  {
+        border: `1px solid black`,
+        padding: `20px 20px 30px 20px`,
+        width: `400px`,
+        position: `relative`,
+        margin: `25px`,
+    }
+    if (isClosed) {
+        styles['backgroundColor'] = '#ece9e9';
+        styles['color'] = '#a5a4a4';
+    }
+    return styles;
+});
 
 const IssueHeader = styled.h4`
   word-wrap: break-word;
+  overflow-wrap: anywhere;
 `
 
 const IssueBody = styled.p`
   word-wrap: break-word;
+  padding-bottom: 20px;
+  overflow-wrap: anywhere;
 `
 
 const LabelsContainer = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 30px 20px 10px 10px;
+  margin: 50px 20px 10px 10px;
   position: absolute;
+  flex-wrap: wrap;
   bottom: 0;
   left: 0;
 `
