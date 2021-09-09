@@ -25,10 +25,14 @@ function Issues() {
   const [currentState, setCurrentState] = useState('all')
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  useBottomScrollListener(() => getIssues());
+  useBottomScrollListener(() => getIssues(), {
+    triggerOnNoScroll: true,
+  });
   const perPage = 9;
+  const [endPaginate, setEndPaginate] = useState(false);
 
   const getIssues = async () => {
+    if (endPaginate) return;
     setIsLoading(true);
     let currentIssues = []
     let currentPageInLoop = currentPage;
@@ -50,15 +54,17 @@ function Issues() {
         } else {
           currentIssues = response.data;
         }
+        currentPageInLoop++;
         if (response.data.length < perPage) {
+          setEndPaginate(true);
           break
         }
-        currentPageInLoop++;
       }
 
       setIssues(issues.concat(currentIssues))
       setCurrentPage(currentPageInLoop)
     } catch (error) {
+      setEndPaginate(true);
       setError(error.message)
     }
     setIsLoading(false);
@@ -86,6 +92,7 @@ function Issues() {
                   setCurrentPage(1);
                   setError(null);
                   setIssues([]);
+                  setEndPaginate(false);
                 }
             }}>
               {tabItem}
